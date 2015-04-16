@@ -20,6 +20,7 @@ public class TaskEuclideanTsp implements Task<List<Integer>> {
 	
 	@Override
 	public List<Integer> execute() {
+		
 		return null;
 	}
 
