@@ -1,6 +1,7 @@
 package computer;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 import api.Computer;
@@ -13,8 +14,13 @@ public class ComputerImpl extends UnicastRemoteObject implements Computer {
 	}
 
 	@Override
-	public Object execute(Task task) throws RemoteException {
-		return null;
+	public <T> T execute(Task<T> task) throws RemoteException {
+		return task.call();
+	}
+	
+	public static void main(String[] args) {
+		System.setSecurityManager(new SecurityManager());
+		LocateRegistry.createRegistry( Computer.PORT ).rebind(Computer.SERVICE_NAME,(Computer) new ComputerImpl());
 	}
 
 }
